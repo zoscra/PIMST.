@@ -1,0 +1,648 @@
+═══════════════════════════════════════════════════════════════════════
+ROADMAP COMPLETO: DE IDEA A PUBLICACIÓN CIENTÍFICA
+═══════════════════════════════════════════════════════════════════════
+
+Tu heurística tiene potencial real. Aquí está el camino COMPLETO para 
+convertirla en una publicación científica.
+
+═══════════════════════════════════════════════════════════════════════
+PASO 1: DOCUMENTAR TU HEURÍSTICA
+═══════════════════════════════════════════════════════════════════════
+
+1.1 DESCRIPCIÓN FORMAL DEL ALGORITMO
+────────────────────────────────────────────────────────────────────
+
+Escribe tu algoritmo en pseudocódigo estándar:
+
+┌─────────────────────────────────────────────────────────────────┐
+│ ALGORITMO: Phyllotaxis-Inspired Multi-Start TSP (PIMST)        │
+├─────────────────────────────────────────────────────────────────┤
+│ Input: Conjunto de ciudades C = {c₁, c₂, ..., cₙ}              │
+│        Factor de radio α ∈ [0.3, 0.7]                           │
+│        Número de intentos k                                      │
+│ Output: Tour T que visita todas las ciudades                    │
+│                                                                  │
+│ 1. Calcular centroide O de todas las ciudades                  │
+│ 2. φ ← (1 + √5)/2  // Proporción áurea                         │
+│ 3. θ_golden ← 2π(1 - 1/φ)  // Ángulo áureo ≈ 137.5°           │
+│ 4. mejor_tour ← ∅                                               │
+│ 5. mejor_distancia ← ∞                                          │
+│                                                                  │
+│ 6. For i = 0 to k-1:                                            │
+│    6.1. θ_i ← i × θ_golden (mod 2π)                            │
+│    6.2. s_i ← ciudad más cercana al ángulo θ_i desde O        │
+│    6.3. T_i ← CircularGreedy(s_i, C, α)                        │
+│    6.4. T_i ← TwoOpt(T_i)                                       │
+│    6.5. Si distancia(T_i) < mejor_distancia:                   │
+│         mejor_tour ← T_i                                        │
+│         mejor_distancia ← distancia(T_i)                        │
+│                                                                  │
+│ 7. Return mejor_tour                                            │
+│                                                                  │
+│ SUBALGORITHM: CircularGreedy(inicio, C, α)                     │
+│ 1. T ← [inicio]                                                 │
+│ 2. visitadas ← {inicio}                                         │
+│ 3. While visitadas ≠ C:                                         │
+│    3.1. actual ← última ciudad en T                             │
+│    3.2. no_visitadas ← C \ visitadas                            │
+│    3.3. d_avg ← promedio de distancias de actual a no_visitadas│
+│    3.4. r ← α × d_avg                                           │
+│    3.5. círculo ← {c ∈ no_visitadas : dist(actual,c) ≤ r}     │
+│    3.6. Si círculo = ∅:                                         │
+│         círculo ← {ciudad más cercana en no_visitadas}         │
+│    3.7. Ordenar círculo por distancia a actual                  │
+│    3.8. Agregar todas en círculo a T                            │
+│    3.9. visitadas ← visitadas ∪ círculo                         │
+│ 4. Return T                                                     │
+└─────────────────────────────────────────────────────────────────┘
+
+1.2 ANÁLISIS DE COMPLEJIDAD
+────────────────────────────────────────────────────────────────────
+
+Analiza el costo computacional:
+
+┌─────────────────────────────────────────────────────────────────┐
+│ COMPLEJIDAD TEMPORAL:                                           │
+│                                                                  │
+│ CircularGreedy:                                                 │
+│ - Bucle externo: O(n) iteraciones                              │
+│ - Por iteración:                                                │
+│   * Calcular promedio: O(n)                                     │
+│   * Buscar en círculo: O(n)                                     │
+│   * Total por iteración: O(n)                                   │
+│ - Total CircularGreedy: O(n²)                                   │
+│                                                                  │
+│ TwoOpt:                                                         │
+│ - Peor caso: O(n²) iteraciones                                  │
+│ - Por iteración: O(n) para invertir segmento                    │
+│ - Total TwoOpt: O(n³) peor caso, O(n²) caso promedio           │
+│                                                                  │
+│ PIMST completo:                                                 │
+│ - k intentos × (CircularGreedy + TwoOpt)                        │
+│ - Total: O(k × n³) peor caso                                    │
+│ - Total: O(k × n²) caso promedio                                │
+│                                                                  │
+│ Con k pequeño (8-10): Prácticamente O(n²) - O(n³)              │
+│                                                                  │
+│ COMPLEJIDAD ESPACIAL: O(n)                                      │
+│ - Array de ciudades + estructuras temporales                    │
+└─────────────────────────────────────────────────────────────────┘
+
+1.3 IMPLEMENTACIÓN LIMPIA
+────────────────────────────────────────────────────────────────────
+
+Crea una versión LIMPIA del código:
+
+- Comentarios claros
+- Nombres de variables descriptivos
+- Sin código de debug
+- Modular y bien estructurado
+- Con tests unitarios
+
+Archivo: pimst.py (crear versión limpia)
+
+1.4 REPOSITORIO GITHUB
+────────────────────────────────────────────────────────────────────
+
+Crear repositorio público:
+
+1. Ir a github.com/new
+2. Nombre: "phyllotaxis-tsp"
+3. Descripción: "Phyllotaxis-Inspired Multi-Start TSP Heuristic"
+4. README.md con:
+   - Descripción del algoritmo
+   - Cómo instalar
+   - Cómo usar
+   - Ejemplos
+   - Resultados preliminares
+   - Citación (formato BibTeX)
+
+═══════════════════════════════════════════════════════════════════════
+PASO 2: PROBAR CON DATASETS REALES (TSPLIB)
+═══════════════════════════════════════════════════════════════════════
+
+2.1 DESCARGAR TSPLIB
+────────────────────────────────────────────────────────────────────
+
+TSPLIB es la biblioteca estándar de instancias TSP.
+
+URL: http://comopt.ifi.uni-heidelberg.de/software/TSPLIB95/
+
+Instancias importantes para probar:
+
+┌──────────────┬─────────┬──────────────┬────────────────────┐
+│ Instancia    │ Tamaño  │ Óptimo       │ Dificultad         │
+├──────────────┼─────────┼──────────────┼────────────────────┤
+│ berlin52     │ 52      │ 7,542        │ Fácil (clásico)    │
+│ eil76        │ 76      │ 538          │ Media              │
+│ kroA100      │ 100     │ 21,282       │ Media              │
+│ ch150        │ 150     │ 6,528        │ Difícil            │
+│ d198         │ 198     │ 15,780       │ Difícil            │
+│ lin318       │ 318     │ 42,029       │ Muy difícil        │
+│ pcb442       │ 442     │ 50,778       │ Muy difícil        │
+│ rat783       │ 783     │ 8,806        │ Extremo            │
+└──────────────┴─────────┴──────────────┴────────────────────┘
+
+2.2 PARSER PARA TSPLIB
+────────────────────────────────────────────────────────────────────
+
+Crear función para leer archivos .tsp:
+
+```python
+def parse_tsplib(filename):
+    """Lee archivo TSPLIB y retorna coordenadas"""
+    with open(filename, 'r') as f:
+        lines = f.readlines()
+    
+    # Buscar sección de coordenadas
+    start = False
+    coords = []
+    
+    for line in lines:
+        if 'NODE_COORD_SECTION' in line:
+            start = True
+            continue
+        if 'EOF' in line:
+            break
+        if start:
+            parts = line.strip().split()
+            if len(parts) == 3:
+                idx, x, y = parts
+                coords.append([float(x), float(y)])
+    
+    return np.array(coords)
+```
+
+2.3 EXPERIMENTOS A REALIZAR
+────────────────────────────────────────────────────────────────────
+
+Para CADA instancia de TSPLIB:
+
+1. Ejecutar tu algoritmo 10 veces (diferentes semillas)
+2. Ejecutar vecino cercano 10 veces
+3. Registrar:
+   - Mejor distancia encontrada
+   - Distancia promedio
+   - Tiempo de ejecución
+   - Desviación estándar
+   - Gap respecto al óptimo conocido
+
+Gap = ((distancia_obtenida - óptimo) / óptimo) × 100%
+
+2.4 TABLA DE RESULTADOS
+────────────────────────────────────────────────────────────────────
+
+Crear tabla como esta (para el paper):
+
+┌──────────┬───────┬────────┬──────────┬────────┬──────┬──────┐
+│Instance  │ n     │ Opt    │ PIMST    │ NN     │ Gap% │ Time │
+├──────────┼───────┼────────┼──────────┼────────┼──────┼──────┤
+│berlin52  │ 52    │ 7,542  │ 7,689    │ 8,234  │ 1.9  │ 0.3s │
+│eil76     │ 76    │ 538    │ 557      │ 602    │ 3.5  │ 0.6s │
+│kroA100   │ 100   │ 21,282 │ 22,145   │ 24,891 │ 4.1  │ 1.2s │
+│...       │       │        │          │        │      │      │
+└──────────┴───────┴────────┴──────────┴────────┴──────┴──────┘
+
+2.5 CÓDIGO PARA EXPERIMENTOS
+────────────────────────────────────────────────────────────────────
+
+Ver archivo: tsplib_experiments.py (lo crearemos)
+
+═══════════════════════════════════════════════════════════════════════
+PASO 3: ESCRIBIR EL PAPER
+═══════════════════════════════════════════════════════════════════════
+
+3.1 ESTRUCTURA ESTÁNDAR
+────────────────────────────────────────────────────────────────────
+
+Un paper científico tiene esta estructura:
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 1. TÍTULO (12 palabras máximo)                                  │
+│    "A Phyllotaxis-Inspired Multi-Start Heuristic for TSP"      │
+│                                                                  │
+│ 2. ABSTRACT (150-250 palabras)                                  │
+│    - Problema                                                    │
+│    - Tu solución                                                 │
+│    - Resultados clave                                            │
+│    - Conclusión                                                  │
+│                                                                  │
+│ 3. INTRODUCTION (1-2 páginas)                                   │
+│    - Contexto del TSP                                            │
+│    - Importancia práctica                                        │
+│    - Limitaciones de métodos existentes                         │
+│    - Tu contribución                                             │
+│    - Organización del paper                                      │
+│                                                                  │
+│ 4. RELATED WORK (1-2 páginas)                                   │
+│    - Heurísticas TSP existentes                                 │
+│    - Multi-start methods                                         │
+│    - Bio-inspired algorithms                                     │
+│    - Golden ratio en optimización                                │
+│                                                                  │
+│ 5. PROPOSED METHOD (2-3 páginas)                                │
+│    - Motivación biológica (filotaxis)                           │
+│    - Descripción del algoritmo                                   │
+│    - Pseudocódigo                                                │
+│    - Análisis de complejidad                                     │
+│    - Parámetros y configuración                                  │
+│                                                                  │
+│ 6. EXPERIMENTAL SETUP (1 página)                                │
+│    - Datasets usados (TSPLIB)                                    │
+│    - Métodos de comparación                                      │
+│    - Métricas de evaluación                                      │
+│    - Hardware y software                                         │
+│                                                                  │
+│ 7. RESULTS (2-3 páginas)                                        │
+│    - Tabla de resultados                                         │
+│    - Gráficos comparativos                                       │
+│    - Análisis estadístico                                        │
+│    - Visualizaciones de rutas                                    │
+│                                                                  │
+│ 8. DISCUSSION (1-2 páginas)                                     │
+│    - Interpretación de resultados                                │
+│    - Por qué funciona                                            │
+│    - Cuándo funciona mejor                                       │
+│    - Limitaciones                                                │
+│                                                                  │
+│ 9. CONCLUSION (0.5-1 página)                                    │
+│    - Resumen de contribuciones                                   │
+│    - Trabajo futuro                                              │
+│                                                                  │
+│ 10. REFERENCES (2-3 páginas)                                    │
+│     - 20-30 referencias relevantes                               │
+└─────────────────────────────────────────────────────────────────┘
+
+Longitud total: 8-12 páginas (formato IEEE o ACM)
+
+3.2 HERRAMIENTAS PARA ESCRIBIR
+────────────────────────────────────────────────────────────────────
+
+LaTeX es el estándar para papers científicos:
+
+Opción 1: Overleaf (online, fácil)
+- Ir a overleaf.com
+- Crear cuenta gratis
+- Usar plantilla de conferencia (IEEE, ACM)
+- Escribir colaborativamente
+
+Opción 2: LaTeX local
+- Instalar MiKTeX o TeX Live
+- Editor: TeXstudio o VS Code con extensión LaTeX
+
+Plantillas disponibles:
+- IEEE Conference: https://www.ieee.org/conferences/publishing/templates.html
+- ACM: https://www.acm.org/publications/proceedings-template
+
+3.3 SECCIONES CRÍTICAS
+────────────────────────────────────────────────────────────────────
+
+ABSTRACT - Lo más importante:
+┌─────────────────────────────────────────────────────────────────┐
+│ Plantilla de Abstract (rellenar los huecos):                    │
+│                                                                  │
+│ The Traveling Salesman Problem (TSP) remains a fundamental      │
+│ challenge in combinatorial optimization. We present a novel     │
+│ multi-start heuristic inspired by phyllotaxis, the botanical    │
+│ pattern of leaf arrangement in plants. Our method, PIMST        │
+│ (Phyllotaxis-Inspired Multi-Start TSP), uses the golden angle   │
+│ (≈137.5°) to distribute starting points uniformly around the    │
+│ problem space, combined with a circular greedy construction     │
+│ and 2-opt refinement. Experiments on TSPLIB instances show      │
+│ that PIMST achieves [X]% improvement over nearest neighbor      │
+│ and competitive results with state-of-the-art heuristics,       │
+│ with solution quality within [Y]% of known optima on average.   │
+│ The bio-inspired distribution strategy provides robust          │
+│ exploration of the solution space with computational            │
+│ complexity O(kn²), making it suitable for medium to large       │
+│ instances.                                                       │
+└─────────────────────────────────────────────────────────────────┘
+
+RELATED WORK - Referencias clave:
+┌─────────────────────────────────────────────────────────────────┐
+│ Debes citar:                                                     │
+│                                                                  │
+│ TSP Clásico:                                                     │
+│ - Christofides (1976) - factor 1.5 approximation               │
+│ - Lin-Kernighan (1973) - heurística clásica                     │
+│ - Held-Karp (1962) - lower bounds                              │
+│                                                                  │
+│ Multi-Start:                                                     │
+│ - Martí et al. (2013) - Multi-start methods review             │
+│                                                                  │
+│ Bio-Inspired:                                                    │
+│ - Dorigo et al. (1996) - Ant Colony Optimization               │
+│ - Kennedy & Eberhart (1995) - Particle Swarm                    │
+│                                                                  │
+│ Golden Ratio:                                                    │
+│ - Vogel (1979) - Mathematical model of phyllotaxis             │
+│ - Prusinkiewicz & Lindenmayer (1990) - L-systems               │
+│                                                                  │
+│ TSPLIB:                                                          │
+│ - Reinelt (1991) - TSPLIB description                           │
+└─────────────────────────────────────────────────────────────────┘
+
+3.4 FIGURAS IMPORTANTES
+────────────────────────────────────────────────────────────────────
+
+Tu paper DEBE incluir:
+
+Figura 1: Inspiración biológica
+- Foto de girasol con espirales áureas
+- Diagrama explicando ángulo áureo
+
+Figura 2: Distribución de puntos de inicio
+- Comparación áurea vs uniforme
+
+Figura 3: Ejemplo de construcción
+- Paso a paso en una instancia pequeña
+
+Figura 4: Resultados comparativos
+- Gráfico de barras: tu método vs otros
+- Box plots de distribuciones
+
+Figura 5: Escalabilidad
+- Tiempo vs tamaño del problema
+
+═══════════════════════════════════════════════════════════════════════
+PASO 4: PUBLICAR EN CONFERENCIA
+═══════════════════════════════════════════════════════════════════════
+
+4.1 CONFERENCIAS TARGET
+────────────────────────────────────────────────────────────────────
+
+Ordenadas por dificultad (de más fácil a más difícil):
+
+NIVEL INICIAL (buena para empezar):
+┌────────────────────────────────────────────────────────────────┐
+│ CEC (Congress on Evolutionary Computation)                     │
+│ - Deadline: ~Enero                                             │
+│ - Notificación: ~Marzo                                         │
+│ - Conferencia: ~Julio                                          │
+│ - Tasa aceptación: ~45-50%                                     │
+│ - Ranking: B-tier                                              │
+│ - Website: cec20XX.org                                         │
+└────────────────────────────────────────────────────────────────┘
+
+┌────────────────────────────────────────────────────────────────┐
+│ GECCO (Genetic and Evolutionary Computation Conference)        │
+│ - Deadline: ~Enero-Febrero                                     │
+│ - Notificación: ~Marzo-Abril                                   │
+│ - Conferencia: ~Julio                                          │
+│ - Tasa aceptación: ~35-40%                                     │
+│ - Ranking: A-tier                                              │
+│ - Website: gecco-20XX.sigevo.org                               │
+│ - RECOMENDADA: Track de "Combinatorial Optimization"          │
+└────────────────────────────────────────────────────────────────┘
+
+NIVEL MEDIO:
+┌────────────────────────────────────────────────────────────────┐
+│ ALENEX (Algorithm Engineering and Experiments)                 │
+│ - Deadline: ~Julio                                             │
+│ - Notificación: ~Octubre                                       │
+│ - Conferencia: ~Enero (con SODA)                               │
+│ - Tasa aceptación: ~40%                                        │
+│ - Ranking: A-tier                                              │
+│ - Website: www.siam.org/conferences                            │
+└────────────────────────────────────────────────────────────────┘
+
+NIVEL AVANZADO (si tienes resultados muy buenos):
+┌────────────────────────────────────────────────────────────────┐
+│ AAAI (Association for Advancement of AI)                       │
+│ - Tasa aceptación: ~20%                                        │
+│ - Ranking: A*-tier                                             │
+│ - Muy competitiva                                              │
+└────────────────────────────────────────────────────────────────┘
+
+MI RECOMENDACIÓN: Empieza con GECCO o CEC
+
+4.2 PROCESO DE SUBMISSION
+────────────────────────────────────────────────────────────────────
+
+Paso a paso:
+
+1. PREPARACIÓN (2-3 meses antes del deadline)
+   □ Terminar experimentos
+   □ Crear todas las figuras
+   □ Escribir borrador completo
+   □ Revisar formato de la conferencia
+
+2. REVISIÓN (1 mes antes)
+   □ Pedir a colegas que lo lean
+   □ Revisar gramática (Grammarly)
+   □ Verificar todas las referencias
+   □ Comprobar límite de páginas
+
+3. SUBMISSION (deadline)
+   □ Crear cuenta en sistema de la conferencia
+   □ Subir PDF
+   □ Completar formulario:
+     - Título
+     - Abstract
+     - Keywords
+     - Autores
+     - Área temática
+   □ Pagar cuota de submission (~$100 USD, a veces)
+
+4. REVISIÓN (~2-3 meses después)
+   □ Recibirás 3-4 reviews
+   □ Pueden ser:
+     - Accept (¡felicidades!)
+     - Minor revisions (casi aceptado)
+     - Major revisions (revisar y resubmit)
+     - Reject (intentar otra conferencia)
+
+5. SI ES ACEPTADO
+   □ Hacer correcciones sugeridas
+   □ Subir versión final (camera-ready)
+   □ Pagar registration fee (~$500-800 USD)
+   □ Preparar presentación
+   □ Asistir a conferencia
+
+4.3 COAUTORES
+────────────────────────────────────────────────────────────────────
+
+Considera invitar coautores:
+- Profesor/investigador senior (da credibilidad)
+- Alguien con experiencia en TSP
+- Colaborador que ayudó con código/experimentos
+
+Orden de autores:
+- Primer autor: Quien hizo la mayor parte del trabajo (tú)
+- Último autor: Supervisor/senior researcher
+- Medio: Otros contribuyentes
+
+4.4 DURANTE LA CONFERENCIA
+────────────────────────────────────────────────────────────────────
+
+Si tu paper es aceptado:
+
+PREPARAR PRESENTACIÓN:
+- 15-20 minutos típicamente
+- Slides claros y visuales
+- Practicar timing
+- Preparar respuestas a preguntas
+
+HACER NETWORKING:
+- Hablar con otros investigadores
+- Asistir a sesiones relacionadas
+- Intercambiar tarjetas/contactos
+- Buscar colaboraciones futuras
+
+═══════════════════════════════════════════════════════════════════════
+PASO 5: APLICACIONES DONDE TU MÉTODO BRILLA
+═══════════════════════════════════════════════════════════════════════
+
+5.1 IDENTIFICAR FORTALEZAS
+────────────────────────────────────────────────────────────────────
+
+Tu método es bueno cuando:
+✓ Distribución de ciudades es relativamente uniforme
+✓ Tamaño medio (50-200 ciudades)
+✓ No se necesita solución absolutamente óptima
+✓ Tiempo es limitado pero no crítico
+✓ Múltiples ejecuciones son posibles
+
+5.2 APLICACIONES ESPECÍFICAS
+────────────────────────────────────────────────────────────────────
+
+A. LOGÍSTICA DE ÚLTIMA MILLA
+┌────────────────────────────────────────────────────────────────┐
+│ Problema: Entregas a domicilio en ciudad                       │
+│ Por qué tu método: Distribución urbana relativamente uniforme  │
+│ Contacto: Empresas de delivery, startups logística            │
+│ Métricas: Ahorro en km, reducción tiempo                      │
+└────────────────────────────────────────────────────────────────┘
+
+B. RUTAS DE DRONES
+┌────────────────────────────────────────────────────────────────┐
+│ Problema: Planificar vuelos de inspección/entrega             │
+│ Por qué tu método: Distribución en área, no hay calles        │
+│ Contacto: Empresas de drones comerciales                       │
+│ Métricas: Autonomía de batería, cobertura área                │
+└────────────────────────────────────────────────────────────────┘
+
+C. PCB ROUTING
+┌────────────────────────────────────────────────────────────────┐
+│ Problema: Perforación de placas de circuito impreso           │
+│ Por qué tu método: Minimizar movimiento del taladro           │
+│ Contacto: Industria electrónica, fabricación PCB              │
+│ Métricas: Tiempo de fabricación                                │
+└────────────────────────────────────────────────────────────────┘
+
+D. VISITAS MÉDICAS
+┌────────────────────────────────────────────────────────────────┐
+│ Problema: Enfermeras/doctores visitando pacientes             │
+│ Por qué tu método: Optimizar rutas diarias                    │
+│ Contacto: Hospitales, servicios de salud a domicilio          │
+│ Métricas: Pacientes atendidos por día                          │
+└────────────────────────────────────────────────────────────────┘
+
+E. TELESCOPIOS ASTRONÓMICOS
+┌────────────────────────────────────────────────────────────────┐
+│ Problema: Secuenciar observaciones de objetos celestes        │
+│ Por qué tu método: Minimizar movimiento telescopio            │
+│ Contacto: Observatorios, proyectos sky surveys                │
+│ Métricas: Objetos observados por noche                         │
+└────────────────────────────────────────────────────────────────┘
+
+5.3 CREAR DEMOS
+────────────────────────────────────────────────────────────────────
+
+Para cada aplicación:
+
+1. VISUALIZACIÓN INTERACTIVA
+   - Web app simple (Streamlit o Dash)
+   - Cargar datos reales
+   - Mostrar ruta optimizada
+   - Comparar con baseline
+
+2. CASO DE ESTUDIO
+   - Datos reales de la industria
+   - Antes/después de tu algoritmo
+   - Métricas de mejora
+   - Testimonio si es posible
+
+3. VIDEO DEMO
+   - 2-3 minutos
+   - Mostrar problema
+   - Mostrar tu solución
+   - Resultados visuales
+   - Subir a YouTube
+
+═══════════════════════════════════════════════════════════════════════
+TIMELINE REALISTA
+═══════════════════════════════════════════════════════════════════════
+
+┌────────┬─────────────────────────────────────────────────────────┐
+│ Mes 1  │ □ Limpiar código                                        │
+│        │ □ Crear repositorio GitHub                              │
+│        │ □ Implementar parser TSPLIB                             │
+│        │ □ Primeros experimentos                                 │
+├────────┼─────────────────────────────────────────────────────────┤
+│ Mes 2  │ □ Completar todos los experimentos TSPLIB              │
+│        │ □ Análisis estadístico                                  │
+│        │ □ Crear todas las figuras                               │
+│        │ □ Empezar a escribir paper                              │
+├────────┼─────────────────────────────────────────────────────────┤
+│ Mes 3  │ □ Terminar borrador del paper                          │
+│        │ □ Buscar coautores                                      │
+│        │ □ Revisión interna                                      │
+│        │ □ Pulir y formatear                                     │
+├────────┼─────────────────────────────────────────────────────────┤
+│ Mes 4  │ □ Submit a conferencia                                 │
+│        │ □ Esperar reviews                                       │
+│        │ □ Mientras tanto: crear demos, aplicaciones             │
+├────────┼─────────────────────────────────────────────────────────┤
+│ Mes 5-6│ □ Recibir reviews                                      │
+│        │ □ Hacer correcciones                                    │
+│        │ □ Resubmit si es necesario                              │
+├────────┼─────────────────────────────────────────────────────────┤
+│ Mes 7+ │ □ Si aceptado: preparar presentación                   │
+│        │ □ Asistir a conferencia                                 │
+│        │ □ ¡PUBLICADO!                                           │
+└────────┴─────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════
+RECURSOS Y HERRAMIENTAS
+═══════════════════════════════════════════════════════════════════════
+
+SOFTWARE:
+□ Python 3.8+
+□ NumPy, Matplotlib
+□ Pandas (para análisis)
+□ LaTeX (Overleaf)
+□ Git/GitHub
+□ Jupyter notebooks (para exploración)
+
+LITERATURA:
+□ Google Scholar: scholar.google.com
+□ Sci-Hub (para acceder papers): sci-hub.se
+□ Connected Papers: visualizar literatura relacionada
+□ Zotero: gestor de referencias
+
+ESCRITURA:
+□ Grammarly: gramática
+□ Hemingway Editor: claridad
+□ DeepL: traducción si escribes primero en español
+
+COMUNIDAD:
+□ Reddit: r/MachineLearning, r/algorithms
+□ Twitter: seguir a investigadores en el área
+□ LinkedIn: conectar con investigadores
+□ Discord: grupos de investigación
+
+═══════════════════════════════════════════════════════════════════════
+¿NECESITAS AYUDA?
+═══════════════════════════════════════════════════════════════════════
+
+Para cada paso puedo ayudarte:
+1. Revisar tu código y hacerlo publication-ready
+2. Analizar tus resultados de TSPLIB
+3. Revisar borradores de tu paper
+4. Sugerir dónde publicar
+5. Preparar materiales de presentación
+
+Siguiente paso INMEDIATO: Crear el código limpio y probarlo en TSPLIB.
+
+═══════════════════════════════════════════════════════════════════════
