@@ -1,0 +1,207 @@
+\documentclass[conference]{IEEEtran}
+
+% Packages
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{cite}
+\usepackage{url}
+
+% Title
+\title{A Phyllotaxis-Inspired Multi-Start Heuristic for the Traveling Salesman Problem}
+
+% Authors
+\author{
+\IEEEauthorblockN{[Tu Nombre]}
+\IEEEauthorblockA{[Tu Institución]\\
+[Tu Email]}
+\and
+\IEEEauthorblockN{[Coautor si aplica]}
+\IEEEauthorblockA{[Institución]\\
+[Email]}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The Traveling Salesman Problem (TSP) remains a fundamental challenge in combinatorial optimization with numerous real-world applications. We present a novel multi-start heuristic inspired by phyllotaxis, the botanical pattern governing leaf arrangement in plants. Our method, termed Phyllotaxis-Inspired Multi-Start TSP (PIMST), leverages the golden angle ($\approx$137.5$^{\circ}$) to distribute starting points uniformly in the solution space, combined with a circular greedy construction strategy and 2-opt local search refinement. Experimental evaluation on standard TSPLIB instances demonstrates that PIMST achieves competitive performance with solution quality within X\% of known optima on average, while maintaining computational efficiency with $O(kn^2)$ time complexity. Our bio-inspired approach provides a novel perspective on multi-start strategies and demonstrates the potential of nature-inspired patterns in algorithm design.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Traveling Salesman Problem, Phyllotaxis, Golden Ratio, Multi-start Heuristic, Bio-inspired Optimization
+\end{IEEEkeywords}
+
+\section{Introduction}
+The Traveling Salesman Problem (TSP) is one of the most extensively studied problems in combinatorial optimization~\cite{applegate2006tsp}. Given a set of cities and distances between them, the objective is to find the shortest tour that visits each city exactly once and returns to the starting city. Despite its simple formulation, TSP is NP-hard~\cite{garey1979computers}, making exact solutions computationally intractable for large instances.
+
+\subsection{Motivation}
+[Explicar por qué el TSP es importante, aplicaciones prácticas]
+
+\subsection{Contributions}
+The main contributions of this paper are:
+\begin{itemize}
+\item A novel multi-start heuristic inspired by phyllotaxis patterns found in nature
+\item Use of the golden angle for optimal distribution of starting points
+\item Comprehensive experimental evaluation on TSPLIB benchmark instances
+\item Analysis of when and why the bio-inspired approach is effective
+\end{itemize}
+
+\subsection{Organization}
+The remainder of this paper is organized as follows: Section~II reviews related work, Section~III describes our proposed method, Section~IV presents experimental setup, Section~V discusses results, and Section~VI concludes.
+
+\section{Related Work}
+
+\subsection{TSP Heuristics}
+[Discutir métodos clásicos: Christofides, Lin-Kernighan, etc.]
+
+\subsection{Multi-Start Methods}
+[Hablar sobre estrategias multi-start existentes]
+
+\subsection{Bio-Inspired Optimization}
+[Mencionar: Ant Colony, Genetic Algorithms, Particle Swarm]
+
+\subsection{Golden Ratio in Optimization}
+[Discutir uso de proporción áurea en optimización]
+
+\section{Proposed Method}
+
+\subsection{Biological Inspiration}
+Phyllotaxis is the arrangement of leaves on a plant stem. Many plants exhibit spiral patterns with the angle between successive leaves approximately equal to the golden angle:
+\begin{equation}
+\theta_g = 2\pi\left(1 - \frac{1}{\phi}\right) \approx 137.5^{\circ}
+\end{equation}
+where $\phi = \frac{1+\sqrt{5}}{2} \approx 1.618$ is the golden ratio.
+
+This arrangement maximizes sunlight exposure and seed packing efficiency~\cite{vogel1979phyllotaxis}. We hypothesize that this optimal distribution principle can be adapted for distributing starting points in multi-start heuristics.
+
+\subsection{Algorithm Description}
+
+\begin{algorithm}
+\caption{PIMST Algorithm}
+\begin{algorithmic}[1]
+\REQUIRE Set of cities $C = \{c_1, c_2, \ldots, c_n\}$
+\REQUIRE Radius factor $\alpha \in [0.3, 0.7]$
+\REQUIRE Number of starts $k$
+\ENSURE Tour $T$ visiting all cities
+\STATE Compute centroid $O$ of all cities
+\STATE $\phi \leftarrow (1 + \sqrt{5})/2$
+\STATE $\theta_g \leftarrow 2\pi(1 - 1/\phi)$
+\STATE $T_{best} \leftarrow \emptyset$, $d_{best} \leftarrow \infty$
+\FOR{$i = 0$ to $k-1$}
+    \STATE $\theta_i \leftarrow i \times \theta_g \pmod{2\pi}$
+    \STATE $s_i \leftarrow$ city nearest to angle $\theta_i$ from $O$
+    \STATE $T_i \leftarrow$ CircularGreedy($s_i$, $C$, $\alpha$)
+    \STATE $T_i \leftarrow$ TwoOpt($T_i$)
+    \IF{$\text{distance}(T_i) < d_{best}$}
+        \STATE $T_{best} \leftarrow T_i$
+        \STATE $d_{best} \leftarrow \text{distance}(T_i)$
+    \ENDIF
+\ENDFOR
+\RETURN $T_{best}$
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Circular Greedy Construction}
+[Explicar en detalle el algoritmo de construcción circular]
+
+\subsection{Complexity Analysis}
+The time complexity of PIMST is $O(kn^2)$ in the average case, where $k$ is the number of starting points and $n$ is the number of cities. The circular greedy construction has complexity $O(n^2)$, and 2-opt refinement has average-case complexity $O(n^2)$.
+
+\section{Experimental Setup}
+
+\subsection{Benchmark Instances}
+We evaluated PIMST on standard TSPLIB instances~\cite{reinelt1991tsplib} ranging from 52 to 318 cities, including: berlin52, eil76, kroA100, ch150, d198, and lin318.
+
+\subsection{Comparison Methods}
+\begin{itemize}
+\item \textbf{Nearest Neighbor (NN):} Classical greedy heuristic
+\item \textbf{Uniform Multi-Start:} Multi-start with uniform angle distribution
+\item [Otros métodos según disponibilidad]
+\end{itemize}
+
+\subsection{Implementation Details}
+All algorithms were implemented in Python 3.8 and executed on [especificar hardware]. Each instance was solved 10 times with different random seeds, and we report mean and standard deviation.
+
+\subsection{Evaluation Metrics}
+Solution quality is measured by the gap from the known optimal:
+\begin{equation}
+\text{Gap} = \frac{d_{found} - d_{opt}}{d_{opt}} \times 100\%
+\end{equation}
+
+\section{Results}
+
+\subsection{Overall Performance}
+Table~\ref{tab:results} presents the experimental results on TSPLIB instances.
+
+[INSERTAR TABLA AQUÍ - usar results_table.tex generado]
+
+\subsection{Comparison with Baselines}
+[Analizar cómo se compara con NN y otros métodos]
+
+\subsection{Effect of Parameters}
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.45\textwidth]{results_plot.png}
+\caption{Comparison of solution quality and computational time.}
+\label{fig:comparison}
+\end{figure}
+
+[Discutir efecto de $\alpha$ y $k$]
+
+\subsection{Scalability}
+[Analizar cómo escala con el tamaño del problema]
+
+\section{Discussion}
+
+\subsection{Why Does It Work?}
+[Explicar la intuición de por qué la distribución áurea ayuda]
+
+\subsection{When Is It Effective?}
+[Identificar características de instancias donde funciona mejor]
+
+\subsection{Limitations}
+[Ser honesto sobre limitaciones: sigue siendo heurística, etc.]
+
+\section{Conclusion}
+We presented PIMST, a novel multi-start heuristic for TSP inspired by phyllotaxis patterns in nature. Our experimental results demonstrate competitive performance with established methods while offering a fresh perspective on solution space exploration through bio-inspired design.
+
+\subsection{Future Work}
+Future directions include:
+\begin{itemize}
+\item Extension to other combinatorial optimization problems
+\item Adaptive parameter selection
+\item Hybridization with meta-heuristics
+\item Theoretical analysis of approximation guarantees
+\end{itemize}
+
+% References
+\begin{thebibliography}{99}
+
+\bibitem{applegate2006tsp}
+D. Applegate, R. Bixby, V. Chvatal, and W. Cook,
+\textit{The Traveling Salesman Problem: A Computational Study}.
+Princeton University Press, 2006.
+
+\bibitem{garey1979computers}
+M. Garey and D. Johnson,
+\textit{Computers and Intractability: A Guide to the Theory of NP-Completeness}.
+W. H. Freeman, 1979.
+
+\bibitem{vogel1979phyllotaxis}
+H. Vogel,
+``A better way to construct the sunflower head,''
+\textit{Mathematical Biosciences}, vol. 44, no. 3-4, pp. 179--189, 1979.
+
+\bibitem{reinelt1991tsplib}
+G. Reinelt,
+``TSPLIB—A traveling salesman problem library,''
+\textit{ORSA Journal on Computing}, vol. 3, no. 4, pp. 376--384, 1991.
+
+% [AÑADIR MÁS REFERENCIAS SEGÚN NECESITES]
+
+\end{thebibliography}
+
+\end{document}

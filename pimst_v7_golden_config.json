@@ -1,0 +1,15 @@
+{
+  "best_params": {
+    "dist_weight": 0.9,
+    "local_weight": 0.7,
+    "direction_weight": 0.2
+  },
+  "avg_improvement": 2.07337397252451,
+  "improvements_by_problem": {
+    "clusters_densos": 0.42442867938206913,
+    "uniforme": 13.555224521051626,
+    "anillo": 6.684298553886755,
+    "mix": -9.965056809672982,
+    "dos_grupos": -0.3320250820249191
+  }
+}

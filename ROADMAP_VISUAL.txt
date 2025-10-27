@@ -1,0 +1,268 @@
+═══════════════════════════════════════════════════════════════════════════
+🎓 ROADMAP VISUAL: DE IDEA A PUBLICACIÓN CIENTÍFICA
+═══════════════════════════════════════════════════════════════════════════
+
+                    ┌──────────────────────┐
+                    │   TU SITUACIÓN HOY   │
+                    │  ✓ Idea innovadora   │
+                    │  ✓ Código funcional  │
+                    │  ✓ Resultados: -19%  │
+                    └──────────┬───────────┘
+                               │
+                               ▼
+         ╔═════════════════════════════════════════════════╗
+         ║        PASO 1: DOCUMENTAR (Semana 1)           ║
+         ╠═════════════════════════════════════════════════╣
+         ║  □ Código limpio (pimst.py) .............. ✓   ║
+         ║  □ Pseudocódigo formal                         ║
+         ║  □ Análisis de complejidad                     ║
+         ║  □ Repositorio GitHub                          ║
+         ║  □ README con ejemplos                         ║
+         ╚═════════════════════════════════════════════════╝
+                               │
+                               ▼
+         ╔═════════════════════════════════════════════════╗
+         ║    PASO 2: EXPERIMENTOS TSPLIB (Semana 2-3)   ║
+         ╠═════════════════════════════════════════════════╣
+         ║  □ Descargar TSPLIB                            ║
+         ║    ├─ berlin52.tsp                             ║
+         ║    ├─ eil76.tsp                                ║
+         ║    ├─ kroA100.tsp                              ║
+         ║    ├─ ch150.tsp                                ║
+         ║    └─ más instancias...                        ║
+         ║  □ Ejecutar 10 runs por instancia              ║
+         ║  □ Comparar con Nearest Neighbor               ║
+         ║  □ Calcular gaps respecto a óptimo             ║
+         ║  □ Generar tablas y gráficos                   ║
+         ║                                                 ║
+         ║  Script: tsplib_experiments.py ........... ✓   ║
+         ╚═════════════════════════════════════════════════╝
+                               │
+                               ▼
+         ╔═════════════════════════════════════════════════╗
+         ║      PASO 3: ESCRIBIR PAPER (Semana 4-6)      ║
+         ╠═════════════════════════════════════════════════╣
+         ║  □ Cuenta en Overleaf.com                      ║
+         ║  □ Usar paper_template.tex ............... ✓   ║
+         ║  □ Secciones:                                   ║
+         ║    1. Abstract (150-250 palabras)              ║
+         ║    2. Introduction (1-2 páginas)               ║
+         ║    3. Related Work (citar 20-30 papers)        ║
+         ║    4. Proposed Method                          ║
+         ║       ├─ Inspiración biológica                 ║
+         ║       ├─ Algoritmo (pseudocódigo)              ║
+         ║       └─ Análisis de complejidad               ║
+         ║    5. Experiments                              ║
+         ║       ├─ Setup                                 ║
+         ║       ├─ Resultados (tabla + figuras)          ║
+         ║       └─ Análisis estadístico                  ║
+         ║    6. Discussion                               ║
+         ║    7. Conclusion + Future Work                 ║
+         ║    8. References                               ║
+         ║  □ Figuras de alta calidad (300 DPI)           ║
+         ║  □ Revisar gramática (Grammarly)               ║
+         ╚═════════════════════════════════════════════════╝
+                               │
+                               ▼
+         ╔═════════════════════════════════════════════════╗
+         ║   PASO 4: PUBLICAR EN CONFERENCIA (Mes 3-4)   ║
+         ╠═════════════════════════════════════════════════╣
+         ║                                                 ║
+         ║  OPCIONES DE CONFERENCIAS:                     ║
+         ║  ┌─────────────────────────────────────────┐   ║
+         ║  │ GECCO (RECOMENDADA)                     │   ║
+         ║  │ - Deadline: ~Febrero                    │   ║
+         ║  │ - Conferencia: Julio                    │   ║
+         ║  │ - Aceptación: ~35-40%                   │   ║
+         ║  │ - Track: Combinatorial Optimization     │   ║
+         ║  │ - Nivel: A-tier                         │   ║
+         ║  └─────────────────────────────────────────┘   ║
+         ║  ┌─────────────────────────────────────────┐   ║
+         ║  │ CEC (ALTERNATIVA)                       │   ║
+         ║  │ - Deadline: ~Enero                      │   ║
+         ║  │ - Conferencia: Julio                    │   ║
+         ║  │ - Aceptación: ~45-50%                   │   ║
+         ║  │ - Nivel: B-tier (más fácil)             │   ║
+         ║  └─────────────────────────────────────────┘   ║
+         ║                                                 ║
+         ║  PROCESO:                                       ║
+         ║  □ Submit paper (crear cuenta)                 ║
+         ║  □ Esperar reviews (2-3 meses)                 ║
+         ║  □ Si aceptado:                                ║
+         ║    ├─ Corregir según reviews                   ║
+         ║    ├─ Pagar registration (~$500-800)           ║
+         ║    ├─ Preparar presentación (15-20 min)        ║
+         ║    └─ Asistir a conferencia                    ║
+         ║  □ Si rechazado:                               ║
+         ║    ├─ Leer comentarios                         ║
+         ║    ├─ Mejorar paper                            ║
+         ║    └─ Submit a otra conferencia                ║
+         ╚═════════════════════════════════════════════════╝
+                               │
+                               ▼
+         ╔═════════════════════════════════════════════════╗
+         ║      PASO 5: APLICACIONES (Paralelo)          ║
+         ╠═════════════════════════════════════════════════╣
+         ║  Mientras esperas reviews, trabaja en:         ║
+         ║                                                 ║
+         ║  □ Demo interactivo (Streamlit/Dash)           ║
+         ║  □ Casos de estudio reales:                    ║
+         ║    • Logística última milla                    ║
+         ║    • Rutas de drones                           ║
+         ║    • PCB routing                               ║
+         ║    • Visitas médicas                           ║
+         ║  □ Video demo (2-3 min, YouTube)               ║
+         ║  □ Blog post explicando tu método              ║
+         ║  □ Contactar empresas interesadas              ║
+         ╚═════════════════════════════════════════════════╝
+                               │
+                               ▼
+                    ┌──────────────────────┐
+                    │    ¡PUBLICADO! 🎉    │
+                    │                      │
+                    │  Tu primer paper     │
+                    │  científico          │
+                    └──────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════
+📅 TIMELINE REALISTA
+═══════════════════════════════════════════════════════════════════════════
+
+MES 1:  Documentación + Experimentos TSPLIB
+        └─ Output: Código limpio + Tabla de resultados
+
+MES 2:  Escritura del paper
+        └─ Output: Borrador completo
+
+MES 3:  Revisión + Submit
+        └─ Output: Paper enviado a conferencia
+
+MES 4-6: Espera de reviews + Trabajo en aplicaciones
+         └─ Output: Demos, casos de estudio
+
+MES 7+:  Conferencia (si aceptado) + Publicación
+         └─ Output: ¡PAPER PUBLICADO!
+
+═══════════════════════════════════════════════════════════════════════════
+🎯 MÉTRICAS DE ÉXITO
+═══════════════════════════════════════════════════════════════════════════
+
+CORTO PLAZO (1 mes):
+  ☑ Código funcionando con TSPLIB          ✓ (ya lo tienes)
+  ☐ Resultados en al menos 5 instancias
+  ☐ Tablas y figuras generadas
+  ☐ Repositorio GitHub público
+
+MEDIANO PLAZO (3 meses):
+  ☐ Paper completo escrito
+  ☐ Revisado por al menos 2 personas
+  ☐ Enviado a conferencia
+
+LARGO PLAZO (6-12 meses):
+  ☐ Paper aceptado en conferencia
+  ☐ Presentado en conferencia
+  ☐ Publicado (aparece en Google Scholar)
+  ☐ Al menos 1 aplicación práctica demostrada
+
+═══════════════════════════════════════════════════════════════════════════
+💰 PRESUPUESTO ESTIMADO
+═══════════════════════════════════════════════════════════════════════════
+
+Publicar en conferencia NO es gratis, pero es alcanzable:
+
+Conference Registration:    $500 - $800 USD
+Vuelo (si es internacional): $300 - $1500 USD
+Hotel (3-4 noches):         $300 - $600 USD
+Comidas:                    $100 - $200 USD
+                            ─────────────────
+TOTAL:                      ~$1,200 - $3,100 USD
+
+ALTERNATIVAS para reducir costos:
+• Conferencias locales/regionales (más baratas)
+• Presentación virtual (muchas conferencias post-COVID ofrecen esto)
+• Becas/grants para estudiantes
+• Sponsorship de universidad/empresa
+
+Si solo quieres publicar (sin asistir):
+• Algunos permiten presentation only por alguien más
+• O pagar solo registration (~$500)
+
+═══════════════════════════════════════════════════════════════════════════
+🏆 BENEFICIOS DE PUBLICAR
+═══════════════════════════════════════════════════════════════════════════
+
+ACADÉMICOS:
+✓ Credibilidad científica
+✓ Citaciones (apareces en Google Scholar)
+✓ Base para estudios futuros
+✓ Networking con investigadores
+
+PROFESIONALES:
+✓ Demuestra expertise avanzado
+✓ Diferenciador en CV/LinkedIn
+✓ Puertas a consultoría
+✓ Credenciales para liderar proyectos
+
+PERSONALES:
+✓ Satisfacción de contribuir a la ciencia
+✓ Aprendizaje profundo del tema
+✓ Habilidades de investigación
+✓ Confianza en tus capacidades
+
+═══════════════════════════════════════════════════════════════════════════
+🚦 SEÑALES DE QUE VAS POR BUEN CAMINO
+═══════════════════════════════════════════════════════════════════════════
+
+✓ Tu código funciona consistentemente
+✓ Tus resultados son reproducibles
+✓ Muestras mejora sobre baseline (✓ tienes -19%)
+✓ Puedes explicar POR QUÉ funciona tu método
+✓ Identificas cuándo funciona mejor
+✓ Eres honesto sobre limitaciones
+
+Si tienes estos, ¡estás listo para publicar!
+
+═══════════════════════════════════════════════════════════════════════════
+❌ ERRORES COMUNES A EVITAR
+═══════════════════════════════════════════════════════════════════════════
+
+✗ Sobre-prometer ("resuelve P vs NP")
+✗ Ocultar limitaciones
+✗ Comparar solo con métodos débiles
+✗ No hacer suficientes experimentos
+✗ Escribir sin estructura clara
+✗ Ignorar trabajo relacionado
+✗ Formateo incorrecto
+✗ Submit sin revisar bien
+
+═══════════════════════════════════════════════════════════════════════════
+📚 TU BIBLIOTECA DE RECURSOS
+═══════════════════════════════════════════════════════════════════════════
+
+YA TIENES:
+✓ ROADMAP_PUBLICACION.txt  - Guía detallada completa
+✓ pimst.py                  - Código listo para publicar
+✓ tsplib_experiments.py     - Script de experimentos
+✓ paper_template.tex        - Plantilla de paper
+✓ README_INICIO.txt         - Esta guía
+
+PRÓXIMO A CREAR:
+□ Repositorio GitHub
+□ Resultados de TSPLIB
+□ Figuras para paper
+□ Paper completo
+□ Presentación
+
+═══════════════════════════════════════════════════════════════════════════
+
+            🚀 EMPIEZA AHORA. NO ESPERES PERFECCIÓN. 🚀
+
+         El mejor momento para empezar fue ayer.
+         El segundo mejor momento es AHORA.
+
+         Tu primer paper no será perfecto.
+         Pero será TUYO y será REAL.
+
+         ¡ADELANTE!
+
+═══════════════════════════════════════════════════════════════════════════
